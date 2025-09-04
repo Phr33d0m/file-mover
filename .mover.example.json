@@ -1,0 +1,62 @@
+{
+  "rules": [
+    {
+      "pattern": "movie_",
+      "renames": [
+        {
+          "from": "movie_",
+          "to": "Movie - "
+        },
+        {
+          "from": "_",
+          "to": " "
+        }
+      ],
+      "destination": "/home/user/Movies"
+    },
+    {
+      "pattern": "film_",
+      "renames": [
+        {
+          "from": "film_",
+          "to": "Film - "
+        },
+        {
+          "from": "_",
+          "to": " "
+        }
+      ],
+      "destination": "/home/user/Movies"
+    },
+    {
+      "pattern": "doc_",
+      "renames": [
+        {
+          "from": "doc_",
+          "to": "Document - "
+        }
+      ],
+      "destination": "/home/user/Documents"
+    },
+    {
+      "pattern": "document_",
+      "renames": [
+        {
+          "from": "document_",
+          "to": "Document - "
+        }
+      ],
+      "destination": "/home/user/Documents"
+    },
+    {
+      "pattern": "the_godfather",
+      "renames": [
+        {
+          "from": "the_godfather",
+          "to": "The Godfather"
+        }
+      ],
+      "destination": "/home/user/Movies/Classics"
+    }
+  ]
+}

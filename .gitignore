@@ -12,3 +12,4 @@ Cargo.lock
 
 # Ignore claude settings
 .claude
+CLAUDE.md

@@ -34,3 +34,8 @@ pub fn print_summary(processed_count: usize, total_count: usize) {
 pub fn print_success() {
     println!("{} {}", "✅".bright_green(), "Operation completed successfully".bright_green());
 }
+
+pub fn print_skip(filename: &str, dest: &str, test_mode: bool) {
+    let action = if test_mode { "Would skip" } else { "Skipped" };
+    println!("  {} {} {} - already exists at {}", "⏭️".bright_yellow(), action, filename, dest.bright_white());
+}

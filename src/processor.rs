@@ -3,7 +3,7 @@ use std::path::Path;
 use crate::config::{Config};
 use crate::output;
 
-pub fn process_files(config: &Config, test_mode: bool) -> Result<(), String> {
+pub fn process_files(config: &Config, test_mode: bool, overwrite: bool) -> Result<(), String> {
     let current_dir = match std::env::current_dir() {
         Ok(dir) => dir,
         Err(e) => return Err(format!("Failed to access current directory: {}", e)),
@@ -73,9 +73,15 @@ pub fn process_files(config: &Config, test_mode: bool) -> Result<(), String> {
                 // Prepare destination path
                 let dest_dir = Path::new(&rule.destination);
                 let dest_path = dest_dir.join(&new_filename);
-                
+
+                // Check if file already exists in destination
+                if dest_path.exists() && !overwrite {
+                    output::print_skip(&new_filename, &dest_path.display().to_string(), test_mode);
+                    break; // Skip to next file
+                }
+
                 output::print_move(&path.display().to_string(), &dest_path.display().to_string(), test_mode);
-                
+
                 // Actually move the file if not in test mode
                 if !test_mode {
                     // Create destination directory if it doesn't exist

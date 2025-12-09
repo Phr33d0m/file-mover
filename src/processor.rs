@@ -76,7 +76,7 @@ pub fn process_files(config: &Config, test_mode: bool, overwrite: bool) -> Resul
 
                 // Check if file already exists in destination
                 if dest_path.exists() && !overwrite {
-                    output::print_skip(&new_filename, &dest_path.display().to_string(), test_mode);
+                    output::print_skip(&new_filename, test_mode);
                     break; // Skip to next file
                 }
 

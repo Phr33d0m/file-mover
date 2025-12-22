@@ -18,6 +18,16 @@ pub fn print_rename(from: &str, to: &str, test_mode: bool) {
     println!("  {} {} {} → {}", "✏️".bright_yellow(), action, from, to.bright_white());
 }
 
+pub fn print_prefix(from: &str, to: &str, test_mode: bool) {
+    let action = if test_mode { "Would prefix" } else { "Prefixed" };
+    println!("  {} {} {} → {}", "🔤".bright_yellow(), action, from, to.bright_white());
+}
+
+pub fn print_suffix(from: &str, to: &str, test_mode: bool) {
+    let action = if test_mode { "Would suffix" } else { "Suffixed" };
+    println!("  {} {} {} → {}", "🔡".bright_yellow(), action, from, to.bright_white());
+}
+
 pub fn print_move(_from: &str, to: &str, test_mode: bool) {
     let action = if test_mode { "Would move" } else { "Moved" };
     println!("  {} {} → {}", "📦".bright_magenta(), action, to.bright_white());

@@ -15,8 +15,7 @@ pub fn process_files(config: &Config, test_mode: bool, overwrite: bool) -> Resul
     };
     
     let mut processed_count = 0;
-    let total_count;
-    
+
     // Collect all valid files and sort by filename
     let mut files = Vec::new();
     for entry_result in entries {
@@ -49,7 +48,7 @@ pub fn process_files(config: &Config, test_mode: bool, overwrite: bool) -> Resul
     
     // Sort files by filename
     files.sort_by(|a, b| a.1.cmp(&b.1));
-    total_count = files.len();
+    let total_count = files.len();
     
     for (path, filename) in files {
         
@@ -69,7 +68,21 @@ pub fn process_files(config: &Config, test_mode: bool, overwrite: bool) -> Resul
                         new_filename = renamed;
                     }
                 }
-                
+
+                // Apply prefix if specified
+                if let Some(prefix) = &rule.prefix {
+                    let prefixed = format!("{}{}", prefix, new_filename);
+                    output::print_prefix(&new_filename, &prefixed, test_mode);
+                    new_filename = prefixed;
+                }
+
+                // Apply suffix if specified (insert before file extension)
+                if let Some(suffix) = &rule.suffix {
+                    let suffixed = apply_suffix(&new_filename, suffix);
+                    output::print_suffix(&new_filename, &suffixed, test_mode);
+                    new_filename = suffixed;
+                }
+
                 // Prepare destination path
                 let dest_dir = Path::new(&rule.destination);
                 let dest_path = dest_dir.join(&new_filename);
@@ -129,4 +142,13 @@ pub fn process_files(config: &Config, test_mode: bool, overwrite: bool) -> Resul
 
 fn matches_pattern(filename: &str, pattern: &str) -> bool {
     filename.contains(pattern)
+}
+
+fn apply_suffix(filename: &str, suffix: &str) -> String {
+    if let Some(dot_pos) = filename.rfind('.') {
+        let (name, ext) = filename.split_at(dot_pos);
+        format!("{}{}{}", name, suffix, ext)
+    } else {
+        format!("{}{}", filename, suffix)
+    }
 }

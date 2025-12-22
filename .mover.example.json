@@ -57,6 +57,18 @@
         }
       ],
       "destination": "/home/user/Movies/Classics"
+    },
+    {
+      "pattern": "backup_",
+      "renames": [
+        {
+          "from": "backup_",
+          "to": ""
+        }
+      ],
+      "prefix": "[BACKUP] ",
+      "suffix": "_archived",
+      "destination": "/home/user/Backups"
     }
   ]
 }

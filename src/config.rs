@@ -13,6 +13,10 @@ pub struct FileRule {
     pub pattern: String,
     #[serde(default)]
     pub renames: Vec<RenameRule>,
+    #[serde(default)]
+    pub prefix: Option<String>,
+    #[serde(default)]
+    pub suffix: Option<String>,
     pub destination: String,
 }
 
